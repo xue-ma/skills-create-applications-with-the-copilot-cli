@@ -6,6 +6,9 @@
  * - subtraction
  * - multiplication
  * - division
+ * - modulo
+ * - power
+ * - squareRoot
  */
 
 function addition(a, b) {
@@ -27,18 +30,36 @@ function division(a, b) {
   return a / b;
 }
 
+function modulo(a, b) {
+  return a % b;
+}
+
+function power(base, exponent) {
+  return base ** exponent;
+}
+
+function squareRoot(n) {
+  if (n < 0) {
+    throw new Error("Square root of a negative number is not allowed.");
+  }
+  return Math.sqrt(n);
+}
+
 function calculate(operation, a, b) {
   const operations = {
     addition,
     subtraction,
     multiplication,
     division,
+    modulo,
+    power,
+    squareRoot,
   };
 
   const handler = operations[operation];
   if (!handler) {
     throw new Error(
-      "Invalid operation. Use one of: addition, subtraction, multiplication, division."
+      "Invalid operation. Use one of: addition, subtraction, multiplication, division, modulo, power, squareRoot."
     );
   }
 
@@ -55,7 +76,9 @@ function parseNumber(value, name) {
 
 function printUsage() {
   console.log("Usage: node src/calculator.js <operation> <number1> <number2>");
-  console.log("Operations: addition, subtraction, multiplication, division");
+  console.log(
+    "Operations: addition, subtraction, multiplication, division, modulo, power, squareRoot"
+  );
 }
 
 if (require.main === module) {
@@ -82,5 +105,8 @@ module.exports = {
   subtraction,
   multiplication,
   division,
+  modulo,
+  power,
+  squareRoot,
   calculate,
 };

@@ -3,6 +3,9 @@ const {
   subtraction,
   multiplication,
   division,
+  modulo,
+  power,
+  squareRoot,
   calculate,
 } = require("../calculator");
 
@@ -50,6 +53,38 @@ describe("calculator basic operations", () => {
       expect(() => division(8, 0)).toThrow("Division by zero is not allowed.");
     });
   });
+
+  describe("modulo", () => {
+    test("returns remainder for positive integers", () => {
+      expect(modulo(10, 3)).toBe(1);
+    });
+
+    test("returns zero when divisible", () => {
+      expect(modulo(12, 4)).toBe(0);
+    });
+  });
+
+  describe("power", () => {
+    test("raises base to positive exponent", () => {
+      expect(power(2, 3)).toBe(8);
+    });
+
+    test("handles fractional exponent", () => {
+      expect(power(9, 0.5)).toBeCloseTo(3);
+    });
+  });
+
+  describe("squareRoot", () => {
+    test("returns square root for non-negative number", () => {
+      expect(squareRoot(9)).toBe(3);
+    });
+
+    test("throws for negative input", () => {
+      expect(() => squareRoot(-1)).toThrow(
+        "Square root of a negative number is not allowed."
+      );
+    });
+  });
 });
 
 describe("calculate dispatcher", () => {
@@ -69,9 +104,21 @@ describe("calculate dispatcher", () => {
     expect(calculate("division", 20, 5)).toBe(4);
   });
 
+  test("dispatches modulo", () => {
+    expect(calculate("modulo", 10, 3)).toBe(1);
+  });
+
+  test("dispatches power", () => {
+    expect(calculate("power", 2, 3)).toBe(8);
+  });
+
+  test("dispatches squareRoot", () => {
+    expect(calculate("squareRoot", 9, 0)).toBe(3);
+  });
+
   test("throws for unsupported operation", () => {
-    expect(() => calculate("modulo", 5, 2)).toThrow(
-      "Invalid operation. Use one of: addition, subtraction, multiplication, division."
+    expect(() => calculate("average", 5, 2)).toThrow(
+      "Invalid operation. Use one of: addition, subtraction, multiplication, division, modulo, power, squareRoot."
     );
   });
 });
